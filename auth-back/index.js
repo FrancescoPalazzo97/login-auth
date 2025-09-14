@@ -1,9 +1,12 @@
 import express from 'express';
+import pizzasRouter from './routers/pizzasRouter.js'
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+
+app.use('/pizzas', pizzasRouter);
 
 app.get('/', (req, res) => {
     res.send('auth-back is working!');
