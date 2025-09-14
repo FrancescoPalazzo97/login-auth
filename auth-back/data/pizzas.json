@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": 1,
+    "title": "Margherita",
+    "ingridients": [
+      "Salsa di pomodoro",
+      "Mozzarella",
+      "Basilico"
+    ],
+    "price": 6,
+    "createdAt": "2025-09-14T11:56:28.590Z",
+    "updatedAt": "2025-09-14T11:56:28.590Z"
+  }
+]

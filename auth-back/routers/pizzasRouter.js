@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getPizzas, generateId } from '../lib/utility.js'
+import { getPizzas, savePizzas, generateId } from '../lib/utility.js'
 
 const router = express.Router();
 
@@ -22,11 +22,16 @@ router.post('/', (req, res) => {
         });
     };
     const pizzas = getPizzas();
-    pizzas.push({
+    const newPizza = {
         id: generateId(),
         title, ingridients, price,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
+    };
+    pizzas.push(newPizza);
+    savePizzas(pizzas);
+    res.status(201).json({
+        data: newPizza
     })
 });
 
