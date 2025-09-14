@@ -19,8 +19,8 @@ const PizzasPage = () => {
 
     return (
         <div>
-            <h1>Lista delle pizze!</h1>
-            <ul>
+            <h1 className="text-center text-4xl my-5">Lista delle pizze!</h1>
+            <ul className="p-5">
                 {pizzas.map(p => (
                     <PizzaCard key={p.id} pizza={p} />
                 ))}
