@@ -1,8 +1,13 @@
 import express from 'express';
+import cors from 'cors'
 import pizzasRouter from './routers/pizzasRouter.js'
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(cors({
+    origin: '*'
+}))
 
 app.use(express.json());
 
