@@ -30,6 +30,11 @@ router.post('/signup', (req, res) => {
     users.push(newUser);
 
     saveUser(users);
+
+    res.status(200).json({
+        success: true,
+        message: 'Sei registrato!'
+    })
 })
 
 export default router;
