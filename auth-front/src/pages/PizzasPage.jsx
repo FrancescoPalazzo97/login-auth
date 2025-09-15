@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import PizzaCard from "../components/PizzaCard";
+import Title from "../components/Title";
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -19,7 +20,7 @@ const PizzasPage = () => {
 
     return (
         <div>
-            <h1 className="text-center text-4xl my-5">Lista delle pizze!</h1>
+            <Title>Lista delle pizze!</Title>
             <ul className="p-5">
                 {pizzas.map(p => (
                     <PizzaCard key={p.id} pizza={p} />
