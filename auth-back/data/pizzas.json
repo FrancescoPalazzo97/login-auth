@@ -10,5 +10,17 @@
     "price": 6,
     "createdAt": "2025-09-14T11:56:28.590Z",
     "updatedAt": "2025-09-14T11:56:28.590Z"
+  },
+  {
+    "id": 2,
+    "title": "Bufalina",
+    "ingridients": [
+      "Salsa di pomodoro",
+      "Mozzarella di bufala",
+      "Basilico"
+    ],
+    "price": 9,
+    "createdAt": "2025-09-15T09:38:38.665Z",
+    "updatedAt": "2025-09-15T09:38:38.665Z"
   }
 ]
