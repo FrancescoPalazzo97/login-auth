@@ -1,5 +1,6 @@
 import express from 'express';
 const router = express.Router();
+import validator from 'validator';
 
 import { generateId, getUsers, saveUser, successObj, errorObj } from '../lib/utility.js';
 
