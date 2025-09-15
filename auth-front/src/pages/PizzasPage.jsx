@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import PizzaCard from "../components/PizzaCard";
 import Title from "../components/Title";
 
-const API_URL = import.meta.env.VITE_API_URL
+const API_URL = import.meta.env.VITE_API_URL;
 
 const PizzasPage = () => {
     const [pizzas, setPizzas] = useState([]);
