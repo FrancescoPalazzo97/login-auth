@@ -1,23 +1,17 @@
 import express from 'express';
 const router = express.Router();
 
-import { generateId, getUsers, saveUser } from '../lib/utility.js';
+import { generateId, getUsers, saveUser, successObj, errorObj } from '../lib/utility.js';
 
 router.post('/signup', (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
-        return res.status(400).json({
-            error: true,
-            message: 'email e password richiesti!'
-        });
+        return res.status(400).json(errorObj('Email e password richiesti!'));
     };
     const users = getUsers();
 
     if (users.some(u => u.email === email)) {
-        return res.status(400).json({
-            error: true,
-            message: 'Questa email esiste già'
-        });
+        return res.status(400).json(errorObj('Questa email esiste già!'));
     };
 
     const newUser = {
@@ -31,10 +25,7 @@ router.post('/signup', (req, res) => {
 
     saveUser(users);
 
-    res.status(200).json({
-        success: true,
-        message: 'Sei registrato!'
-    })
-})
+    res.status(201).json(successObj('Sei registrato!', newUser));
+});
 
 export default router;

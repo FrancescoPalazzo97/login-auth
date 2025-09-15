@@ -1,5 +1,20 @@
 import fs from 'fs';
 
+export function errorObj(message) {
+    return {
+        error: true,
+        message
+    };
+};
+
+export function successObj(message, data) {
+    return {
+        success: true,
+        message,
+        data
+    };
+};
+
 export function getUsers() {
     return JSON.parse(fs.readFileSync('./data/users.json', 'utf-8'));
 };
