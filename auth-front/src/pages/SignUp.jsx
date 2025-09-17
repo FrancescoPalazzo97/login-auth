@@ -1,11 +1,15 @@
 import { useState } from "react";
-import Title from "../components/Title"
+import Title from "../components/Title";
+import usePasswordRequirements from '../hooks/usePasswordRequirements';
+import validator from 'validator';
 const API_URL = import.meta.env.VITE_API_URL;
 
 const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
+
+    const passwordRequirements = usePasswordRequirements();
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -22,7 +26,14 @@ const SignUp = () => {
             return;
         };
 
-        const res = fetch(`${API_URL}/auth/signup`, {
+        if (passwordRequirements && !validator.isStrongPassword(password, passwordRequirements)) {
+            const { minLength, minLowercase, minUppercase, minNumbers } = passwordRequirements;
+            console.error(`La password non ha i seguenti requisiti: ${minUppercase} lettera maiuscola, ${minLowercase} lettera minuscola, ${minNumbers} numero/i e una lunghezza minima di ${minLength} caratteri`);
+            alert(`La password non ha i seguenti requisiti: ${minUppercase} lettera maiuscola, ${minLowercase} lettera minuscola, ${minNumbers} numero/i e una lunghezza minima di ${minLength} caratteri`);
+            return;
+        }
+
+        const res = await fetch(`${API_URL}/auth/signup`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -44,7 +55,7 @@ const SignUp = () => {
         setRepeatPassword('');
     };
 
-    return (
+    return passwordRequirements && (
         <div className="max-w-md mx-auto mt-10 p-6">
             <Title>Sign Up</Title>
             <form onSubmit={handleSubmit} className="space-y-4 mt-6">
