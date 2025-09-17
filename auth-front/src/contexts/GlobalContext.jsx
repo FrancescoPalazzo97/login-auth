@@ -1,11 +1,22 @@
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
 
-    const value = {
+    const [user, setUser] = useState(() => {
+        const userString = localStorage.getItem('user');
+        return userString ? JSON.parse(userString) : null;
+    });
 
+    useEffect(() => {
+        const userString = JSON.stringify(user);
+        localStorage.setItem('user', userString);
+    }, [user]);
+
+    const value = {
+        user,
+        setUser
     }
 
     return (
