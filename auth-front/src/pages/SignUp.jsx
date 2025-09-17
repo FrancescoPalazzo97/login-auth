@@ -2,6 +2,7 @@ import { useState } from "react";
 import Title from "../components/Title";
 import usePasswordRequirements from '../hooks/usePasswordRequirements';
 import validator from 'validator';
+import { Link } from "react-router-dom";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const SignUp = () => {
@@ -93,6 +94,9 @@ const SignUp = () => {
                     Registrati
                 </button>
             </form>
+            <p className="my-3 text-xl">
+                Sei già registrato? Fai il <Link to='/login' className="underline hover:brightness-150">Login</Link>
+            </p>
         </div>
     )
 }
