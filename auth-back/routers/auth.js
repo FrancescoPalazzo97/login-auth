@@ -48,4 +48,19 @@ router.post('/signup', (req, res) => {
     res.status(201).json(successObj('Sei registrato!', newUser));
 });
 
+router.post('/login', (req, res) => {
+    const { email, password } = req.body;
+    if (!email || !password) {
+        return res.status(400).json(errorObj('Email e password richieste!'));
+    };
+    const users = getUsers();
+    const userToFind = users.find(u => u.email === email);
+    if (!userToFind && userToFind.password !== password) {
+        return res.status(400).json(errorObj('Email o password sbagliati!'));
+    };
+    return res.status(200).json({
+        data: userToFind
+    })
+})
+
 export default router;
