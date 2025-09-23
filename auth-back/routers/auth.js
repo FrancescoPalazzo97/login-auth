@@ -58,10 +58,11 @@ router.post('/login', (req, res) => {
     const users = getUsers();
     console.log(users)
     const userToFind = users.find(u => u.email === email);
-    if (userToFind && userToFind.password !== password) {
+    console.log('utente da cercare', userToFind)
+    if (userToFind && userToFind.password === password) {
         return res.status(400).json(errorObj('Email o password sbagliati!'));
     };
-    return res.status(200).json({
+    res.status(200).json({
         data: 'Accesso eseguito!'
     })
 })

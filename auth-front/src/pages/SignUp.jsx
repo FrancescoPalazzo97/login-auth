@@ -27,6 +27,13 @@ const SignUp = () => {
             return;
         };
 
+        if (!validator.isEmail(email)) {
+            console.error(`Email non valida!`)
+            alert(`Email non valida!`);
+            return;
+        };
+
+
         if (passwordRequirements && !validator.isStrongPassword(password, passwordRequirements)) {
             const { minLength, minLowercase, minUppercase, minNumbers } = passwordRequirements;
             console.error(`La password non ha i seguenti requisiti: ${minUppercase} lettera maiuscola, ${minLowercase} lettera minuscola, ${minNumbers} numero/i e una lunghezza minima di ${minLength} caratteri`);
