@@ -29,6 +29,20 @@ const Login = () => {
             },
             body: JSON.stringify({ email, password })
         });
+
+        if (!res.ok) {
+            console.error('Server error:', res.status, res.statusText);
+            alert('Errore del server. Assicurati che il backend sia in esecuzione.');
+            return;
+        }
+
+        const contentType = res.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+            console.error('Response is not JSON:', await res.text());
+            alert('Errore: il server non ha restituito una risposta JSON valida');
+            return;
+        }
+
         const data = await res.json();
 
         if (data.error) {

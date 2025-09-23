@@ -6,6 +6,7 @@ const PizzaCard = ({ pizza }) => {
             <h2 className='text-2xl font-bold mb-2'>{pizza.title}</h2>
             <p className='mb-2'><span className='font-bold'>Ingredienti</span>: {pizza.ingridients.join(' ,')}</p>
             <p><span className='font-bold'>prezzo</span>: {pizza.price}&euro;</p>
+            <button>Aggiungi ai preferiti</button>
         </li>
     )
 }

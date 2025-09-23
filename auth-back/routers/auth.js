@@ -38,7 +38,8 @@ router.post('/signup', (req, res) => {
         id: generateId(getUsers),
         email, password,
         createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
+        favorites: []
     };
 
     users.push(newUser);
@@ -50,16 +51,18 @@ router.post('/signup', (req, res) => {
 
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
+    console.log(email, password)
     if (!email || !password) {
         return res.status(400).json(errorObj('Email e password richieste!'));
     };
     const users = getUsers();
+    console.log(users)
     const userToFind = users.find(u => u.email === email);
-    if (!userToFind && userToFind.password !== password) {
+    if (userToFind && userToFind.password !== password) {
         return res.status(400).json(errorObj('Email o password sbagliati!'));
     };
     return res.status(200).json({
-        data: userToFind
+        data: 'Accesso eseguito!'
     })
 })
 
