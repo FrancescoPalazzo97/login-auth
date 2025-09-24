@@ -48,6 +48,7 @@ const SignUp = () => {
             },
             body: JSON.stringify({ email, password })
         });
+
         const data = await res.json();
 
         if (data.error) {

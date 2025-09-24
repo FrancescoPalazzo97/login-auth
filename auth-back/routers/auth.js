@@ -2,9 +2,9 @@ import express from 'express';
 const router = express.Router();
 import validator from 'validator';
 
-import { generateId, getUsers, saveUser, successObj, errorObj } from '../lib/utility.js';
+import { generateId, getUsers, saveUser, successObj, errorObj, encryptPassword, validatePassword } from '../lib/utility.js';
 
-const passwordRequirements = { minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1 };
+const passwordRequirements = { minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 0 };
 
 router.get('/password-requirements', (req, res) => {
     res.json({
@@ -36,7 +36,8 @@ router.post('/signup', (req, res) => {
 
     const newUser = {
         id: generateId(getUsers),
-        email, password,
+        email,
+        password: encryptPassword(password),
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         favorites: []
@@ -51,15 +52,13 @@ router.post('/signup', (req, res) => {
 
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
-    console.log(email, password)
     if (!email || !password) {
         return res.status(400).json(errorObj('Email e password richieste!'));
     };
     const users = getUsers();
     console.log(users)
     const userToFind = users.find(u => u.email === email);
-    console.log('utente da cercare', userToFind)
-    if (userToFind && userToFind.password === password) {
+    if (!userToFind || !validatePassword(password, userToFind.password)) {
         return res.status(400).json(errorObj('Email o password sbagliati!'));
     };
     res.status(200).json({

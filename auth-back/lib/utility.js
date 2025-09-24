@@ -1,4 +1,7 @@
 import fs from 'fs';
+import bcrypt from 'bcrypt';
+
+const PEPPER_KEY = process.env.PEPPER_KEY || 'DEFAULT_PEPPER_KEY';
 
 export function errorObj(message) {
     return {
@@ -38,4 +41,17 @@ export function generateId(getData) {
     const ids = data.map(d => d.id);
     const maxId = ids.length > 0 ? Math.max(...ids) : 0;
     return maxId + 1;
-}
+};
+
+export function encryptPassword(password) {
+    const salt = bcrypt.genSaltSync(10);
+    console.log('pepper key:', PEPPER_KEY)
+    const passwordToHash = password + PEPPER_KEY;
+    const hashedPassword = bcrypt.hashSync(passwordToHash, salt);
+    return hashedPassword;
+};
+
+export function validatePassword(password, hashedPassword) {
+    const passwordToHash = password + PEPPER_KEY;
+    return bcrypt.compareSync(passwordToHash, hashedPassword);
+};
