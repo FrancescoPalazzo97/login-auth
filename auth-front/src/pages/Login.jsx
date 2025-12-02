@@ -9,7 +9,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const { setUser } = useGlobalContext();
+    const { setUser, setToken } = useGlobalContext();
 
     const navigate = useNavigate();
 
@@ -53,7 +53,8 @@ const Login = () => {
 
         console.log('Login effettuato');
         alert('Login effettuato');
-        setUser(data.data);
+        setUser(data.data.user);
+        setToken(data.data.token);
         setEmail('');
         setPassword('');
         navigate('/')

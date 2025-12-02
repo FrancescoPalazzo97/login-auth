@@ -9,7 +9,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 const PizzasPage = () => {
     const [pizzas, setPizzas] = useState([]);
 
-    const { user, setUser } = useGlobalContext();
+    const { user, token } = useGlobalContext();
 
     useEffect(() => {
         fetch(`${API_URL}/pizzas`)
@@ -22,17 +22,22 @@ const PizzasPage = () => {
 
     return (
         <div className="p-5">
-            <Title>Lista delle pizze!</Title>
-            {!user &&
+            {!token ? (
                 <p className="my-3 text-xl">
                     Per vedere le pizze ti devi prima registrare! <Link className="underline hover:brightness-150" to='/signup'>Clicca qui</Link>
                 </p>
-            }
-            <ul>
-                {pizzas.map(p => (
-                    <PizzaCard key={p.id} pizza={p} />
-                ))}
-            </ul>
+            ) : (<>
+                    <span className="text-gray-400">Benvenuto {user.email}</span>
+                    <Title>Lista delle pizze!</Title>
+                    <ul>
+                        {pizzas.map(p => (
+                            <PizzaCard 
+                                key={p.id} 
+                                pizza={p} 
+                            />
+                        ))}
+                    </ul>
+                </>)}
         </div>
     )
 }

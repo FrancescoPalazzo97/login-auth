@@ -14,9 +14,27 @@ export const GlobalProvider = ({ children }) => {
         localStorage.setItem('user', userString);
     }, [user]);
 
+    const [token, setToken] = useState(() => {
+        const tokenString = localStorage.getItem('token');
+        return tokenString ? JSON.parse(tokenString) : null;
+    });
+
+    useEffect(() => {
+        const tokenString = JSON.stringify(token);
+        localStorage.setItem('token', tokenString);
+    }, [token]);
+
+    const logout = () => {
+        setUser(null);
+        setToken(null);
+    }
+
     const value = {
         user,
-        setUser
+        setUser,
+        token,
+        setToken,
+        logout
     }
 
     return (

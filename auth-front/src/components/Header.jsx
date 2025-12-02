@@ -2,10 +2,9 @@ import { NavLink, useNavigate } from "react-router-dom"
 import { useGlobalContext } from "../hooks/useGlobalContext";
 
 const Header = () => {
-
-    const { user, setUser } = useGlobalContext();
-
     const navigate = useNavigate();
+
+    const { user, logout } = useGlobalContext();
 
     return (
         <nav className="bg-slate-100 border-b border-slate-300 p-5">
@@ -41,8 +40,8 @@ const Header = () => {
                             </NavLink>
                         </li>
                         <li
-                            onClick={() => {
-                                setUser(null);
+                            onClick={()=>{
+                                logout();
                                 navigate('/login');
                             }}
                             className="text-lg font-bold text-slate-700 hover:text-slate-900 transition-colors cursor-pointer"

@@ -2,7 +2,8 @@ import express from 'express';
 const router = express.Router();
 import validator from 'validator';
 
-import { generateId, getUsers, saveUser, successObj, errorObj, encryptPassword, validatePassword } from '../lib/utility.js';
+import { generateId, getUsers, saveUser, successObj, errorObj, encryptPassword, validatePassword, createToken } from '../lib/utility.js';
+import e from 'express';
 
 const passwordRequirements = { minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 0 };
 
@@ -56,14 +57,21 @@ router.post('/login', (req, res) => {
         return res.status(400).json(errorObj('Email e password richieste!'));
     };
     const users = getUsers();
-    console.log(users)
     const userToFind = users.find(u => u.email === email);
     if (!userToFind || !validatePassword(password, userToFind.password)) {
         return res.status(400).json(errorObj('Email o password sbagliati!'));
     };
-    res.status(200).json({
-        data: 'Accesso eseguito!'
-    })
+    const token = createToken({ id: userToFind.id, email: userToFind.email });
+    res.status(200).json(successObj(
+        'Login effettuato!', 
+        {
+            token,
+            user: {
+                email: userToFind.email,
+                favorites: userToFind.favorites
+            }
+        }
+    ));
 })
 
 export default router;

@@ -22,5 +22,116 @@
     "price": 9,
     "createdAt": "2025-09-15T09:38:38.665Z",
     "updatedAt": "2025-09-15T09:38:38.665Z"
+  },
+  {
+    "id": 3,
+    "title": "Diavola",
+    "ingridients": [
+      "Salsa di pomodoro",
+      "Mozzarella",
+      "Salame piccante"
+    ],
+    "price": 8,
+    "createdAt": "2025-09-16T10:15:22.430Z",
+    "updatedAt": "2025-09-16T10:15:22.430Z"
+  },
+  {
+    "id": 4,
+    "title": "Quattro Stagioni",
+    "ingridients": [
+      "Salsa di pomodoro",
+      "Mozzarella",
+      "Prosciutto cotto",
+      "Funghi",
+      "Carciofi",
+      "Olive"
+    ],
+    "price": 10,
+    "createdAt": "2025-09-17T14:22:45.120Z",
+    "updatedAt": "2025-09-17T14:22:45.120Z"
+  },
+  {
+    "id": 5,
+    "title": "Capricciosa",
+    "ingridients": [
+      "Salsa di pomodoro",
+      "Mozzarella",
+      "Prosciutto cotto",
+      "Funghi",
+      "Carciofi",
+      "Olive",
+      "Uovo"
+    ],
+    "price": 10,
+    "createdAt": "2025-09-18T09:30:12.890Z",
+    "updatedAt": "2025-09-18T09:30:12.890Z"
+  },
+  {
+    "id": 6,
+    "title": "Quattro Formaggi",
+    "ingridients": [
+      "Mozzarella",
+      "Gorgonzola",
+      "Fontina",
+      "Parmigiano"
+    ],
+    "price": 9,
+    "createdAt": "2025-09-19T11:45:33.560Z",
+    "updatedAt": "2025-09-19T11:45:33.560Z"
+  },
+  {
+    "id": 7,
+    "title": "Prosciutto e Funghi",
+    "ingridients": [
+      "Salsa di pomodoro",
+      "Mozzarella",
+      "Prosciutto cotto",
+      "Funghi"
+    ],
+    "price": 8,
+    "createdAt": "2025-09-20T13:20:18.770Z",
+    "updatedAt": "2025-09-20T13:20:18.770Z"
+  },
+  {
+    "id": 8,
+    "title": "Napoletana",
+    "ingridients": [
+      "Salsa di pomodoro",
+      "Mozzarella",
+      "Acciughe",
+      "Capperi",
+      "Origano"
+    ],
+    "price": 8,
+    "createdAt": "2025-09-21T15:55:47.220Z",
+    "updatedAt": "2025-09-21T15:55:47.220Z"
+  },
+  {
+    "id": 9,
+    "title": "Marinara",
+    "ingridients": [
+      "Salsa di pomodoro",
+      "Aglio",
+      "Origano",
+      "Olio extravergine d'oliva"
+    ],
+    "price": 5,
+    "createdAt": "2025-09-22T08:10:25.340Z",
+    "updatedAt": "2025-09-22T08:10:25.340Z"
+  },
+  {
+    "id": 10,
+    "title": "Ortolana",
+    "ingridients": [
+      "Salsa di pomodoro",
+      "Mozzarella",
+      "Melanzane",
+      "Zucchine",
+      "Peperoni",
+      "Basilico"
+    ],
+    "price": 9,
+    "createdAt": "2025-09-23T12:35:59.680Z",
+    "updatedAt": "2025-09-23T12:35:59.680Z"
   }
 ]

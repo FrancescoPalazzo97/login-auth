@@ -1,10 +1,10 @@
 [
   {
-    "id": 1,
-    "email": "pazzo@palazzo.it",
-    "password": "$2b$10$zrnXOTX.eG/ERh91UFxWvOf4rBvyVfRTszAceKnvW19RjjRHuKF86",
-    "createdAt": "2025-09-24T12:49:15.143Z",
-    "updatedAt": "2025-09-24T12:49:15.144Z",
+    "id": 2,
+    "email": "palazzo@pazzo.com",
+    "password": "$2b$10$qA.ePsK3yU4heYX.HwshjOGA59NPjCrsecaxGEtNWRglk3LYBi1ry",
+    "createdAt": "2025-12-02T14:39:46.211Z",
+    "updatedAt": "2025-12-02T14:39:46.211Z",
     "favorites": []
   }
 ]

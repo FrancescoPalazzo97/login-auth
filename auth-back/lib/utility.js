@@ -1,7 +1,9 @@
 import fs from 'fs';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const PEPPER_KEY = process.env.PEPPER_KEY || 'DEFAULT_PEPPER_KEY';
+const SECRET_KEY = process.env.SECRET_KEY || 'DEFAULT_SECRET_KEY';
 
 export function errorObj(message) {
     return {
@@ -43,9 +45,18 @@ export function generateId(getData) {
     return maxId + 1;
 };
 
+export function createToken(payload) {
+    const token = jwt.sign(payload, SECRET_KEY, {expiresIn: '1h'});
+    return token;
+}
+
+export function verifyToken(token) {
+    const decoded = jwt.verify(token, SECRET_KEY);
+    return decoded;
+}
+
 export function encryptPassword(password) {
     const salt = bcrypt.genSaltSync(10);
-    console.log('pepper key:', PEPPER_KEY)
     const passwordToHash = password + PEPPER_KEY;
     const hashedPassword = bcrypt.hashSync(passwordToHash, salt);
     return hashedPassword;
