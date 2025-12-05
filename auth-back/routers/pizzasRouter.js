@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-import { getPizzas, savePizzas, getUsers, generateId, successObj, errorObj, saveUser, verifyToken, createToken, requireAuth, triggerUserFavorites } from '../lib/utility.js';
+import { getPizzas, savePizzas, generateId, successObj, errorObj, createToken, requireAuth, triggerUserFavorites } from '../lib/utility.js';
 
 router.get('/', (req, res) => {
     const pizzas = getPizzas();
