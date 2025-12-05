@@ -12,7 +12,7 @@ export function errorObj(message) {
     };
 };
 
-export function successObj(message, data) {
+export function successObj(message, data = null) {
     return {
         success: true,
         message,
@@ -37,6 +37,31 @@ export function savePizzas(data) {
     const dataString = JSON.stringify(data, null, 2);
     fs.writeFileSync('./data/pizzas.json', dataString, 'utf-8');
 };
+
+export function triggerUserFavorites(user, pizzaId) {
+    const users = getUsers();
+    const selectedUser = users.find(u => u.id === user.id && u.email === user.email);
+
+    if (!selectedUser) {
+        return res.status(401).json(errorObj('Utente non trovato'));
+    };
+
+    const pizzas = getPizzas()
+    const pizza = pizzas.find(p => p.id === Number(pizzaId));
+
+    if (!pizza) {
+        return res.status(404).json(errorObj('Pizza non trovata!'));
+    }
+
+    if (selectedUser.favorites.some(id => id === pizza.id)) {
+        selectedUser.favorites = selectedUser.favorites.filter(favId => favId !== pizza.id);
+    } else {
+        selectedUser.favorites.push(pizza.id);
+    }
+
+    saveUser(users);
+    return selectedUser;
+}
 
 export function generateId(getData) {
     const data = getData();
@@ -66,3 +91,19 @@ export function validatePassword(password, hashedPassword) {
     const passwordToHash = password + PEPPER_KEY;
     return bcrypt.compareSync(passwordToHash, hashedPassword);
 };
+
+export function requireAuth(req, res, next) {
+    const { token } = req.body;
+
+    if (!token) {
+        return res.status(401).json(errorObj('Token mancante'));
+    }
+
+    try {
+        const decodedToken = verifyToken(token);
+        req.user = decodedToken;
+        next();
+    } catch (error) {
+        return res.status(401).json(errorObj('Token non valido o scaduto'));
+    }
+}

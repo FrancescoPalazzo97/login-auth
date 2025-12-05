@@ -1,8 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-import { getPizzas, savePizzas, getUsers, generateId, successObj, errorObj, saveUser, verifyToken, createToken } from '../lib/utility.js';
-
+import { getPizzas, savePizzas, getUsers, generateId, successObj, errorObj, saveUser, verifyToken, createToken, requireAuth, triggerUserFavorites } from '../lib/utility.js';
 
 router.get('/', (req, res) => {
     const pizzas = getPizzas();
@@ -29,38 +28,23 @@ router.post('/', (req, res) => {
     res.status(201).json(successObj('Pizza inserita', newPizza));
 });
 
+router.use(requireAuth);
+
 router.post('/:id/favorite', (req, res) => {
     const { id } = req.params;
-    const { token } = req.body;
 
-    // Verifica token con gestione errori
-    let decodedToken;
-    try {
-        decodedToken = verifyToken(token);
-    } catch (error) {
-        return res.status(401).json(errorObj('Token non valido o scaduto'));
-    }
+    const selectedUser = triggerUserFavorites(req.user, id);
 
-    const users = getUsers();
-    const selectedUser = users.find(u => u.id === decodedToken.id && u.email === decodedToken.email);
-    if (!selectedUser) {
-        return res.status(401).json(errorObj('Utente non trovato'));
-    };
-    const pizzas = getPizzas()
-    const pizza = pizzas.find(p => p.id === Number(id));
-    if (!pizza) return res.status(404).json(errorObj('Pizza non trovata!'));
-    if (selectedUser.favorites.some(id => id === pizza.id)) {
-        selectedUser.favorites = selectedUser.favorites.filter(favId => favId !== pizza.id);
-    } else {
-        selectedUser.favorites.push(pizza.id);
-    }
-    saveUser(users);
     const refreshedToken = createToken({ id: selectedUser.id, email: selectedUser.email });
+
     res.json(successObj(
         'Operazione completata con successo',
         {
-            user: { email: selectedUser.email, favorites: selectedUser.favorites },
-            token: refreshedToken
+            token: refreshedToken,
+            user: { 
+                email: selectedUser.email, 
+                favorites: selectedUser.favorites 
+            }
         }
     ));
 })

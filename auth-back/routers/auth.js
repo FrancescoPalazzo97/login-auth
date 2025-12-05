@@ -3,7 +3,6 @@ const router = express.Router();
 import validator from 'validator';
 
 import { generateId, getUsers, saveUser, successObj, errorObj, encryptPassword, validatePassword, createToken } from '../lib/utility.js';
-import e from 'express';
 
 const passwordRequirements = { minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 0 };
 
@@ -14,6 +13,7 @@ router.get('/password-requirements', (req, res) => {
 });
 
 router.post('/signup', (req, res) => {
+
     const { email, password } = req.body;
     if (!email || !password) {
         return res.status(400).json(errorObj('Email e password richiesti!'));
@@ -43,12 +43,21 @@ router.post('/signup', (req, res) => {
         updatedAt: new Date().toISOString(),
         favorites: []
     };
-
+    
+    const token = createToken({ id: newUser.id, email: newUser.email });
     users.push(newUser);
-
     saveUser(users);
 
-    res.status(201).json(successObj('Sei registrato!', newUser));
+    res.status(201).json(successObj(
+        'Sei registrato!',
+        {
+            token,
+            user: {
+                email: newUser.email,
+                favorites: newUser.favorites
+            }
+        }
+    ));
 });
 
 router.post('/login', (req, res) => {

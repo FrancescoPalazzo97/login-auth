@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { useGlobalContext } from "../hooks/useGlobalContext";
 import Title from "../components/Title";
 import usePasswordRequirements from '../hooks/usePasswordRequirements';
 import validator from 'validator';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const SignUp = () => {
@@ -10,11 +11,15 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
 
+    const  { setToken, setUser } = useGlobalContext();
+
+    const navigate = useNavigate();
+
     const passwordRequirements = usePasswordRequirements();
 
     const handleSubmit = async e => {
         e.preventDefault();
-
+        
         if (!email || !password || !repeatPassword) {
             console.error('Sono richiesti tutti i campi!');
             alert('Sono richiesti tutti i campi!');
@@ -62,6 +67,9 @@ const SignUp = () => {
         setEmail('');
         setPassword('');
         setRepeatPassword('');
+        setUser(data.data.user);
+        setToken(data.data.token);
+        navigate('/');
     };
 
     return passwordRequirements && (

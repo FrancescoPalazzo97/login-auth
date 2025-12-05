@@ -5,6 +5,26 @@
     "password": "$2b$10$qA.ePsK3yU4heYX.HwshjOGA59NPjCrsecaxGEtNWRglk3LYBi1ry",
     "createdAt": "2025-12-02T14:39:46.211Z",
     "updatedAt": "2025-12-02T14:39:46.211Z",
+    "favorites": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "id": 3,
+    "email": "user2@test.com",
+    "password": "$2b$10$B0G8Lovq4gnW2m/fvPHJ/.FshikSOU1x5NAwxgZhynt2Ngy3Xd362",
+    "createdAt": "2025-12-05T16:42:27.558Z",
+    "updatedAt": "2025-12-05T16:42:27.558Z",
+    "favorites": []
+  },
+  {
+    "id": 4,
+    "email": "user3@test.com",
+    "password": "$2b$10$ujk1ah8jsXhLzvC.OxzXK.iImU4.KNcQuA4qWG94q.WPvEw87E.bW",
+    "createdAt": "2025-12-05T16:46:37.267Z",
+    "updatedAt": "2025-12-05T16:46:37.267Z",
     "favorites": []
   }
 ]
