@@ -48,6 +48,14 @@ const Header = () => {
                         >
                             Log Out
                         </li>
+                        <li>
+                            <button
+                                onClick={() => navigate('/change-password')}
+                                className="text-lg font-bold text-slate-700 hover:text-slate-900 transition-colors cursor-pointer"
+                            >
+                                Cambia password
+                            </button>
+                        </li>
                     </>
                 }
             </menu>

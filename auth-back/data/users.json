@@ -2,13 +2,12 @@
   {
     "id": 2,
     "email": "palazzo@pazzo.com",
-    "password": "$2b$10$qA.ePsK3yU4heYX.HwshjOGA59NPjCrsecaxGEtNWRglk3LYBi1ry",
+    "password": "$2b$10$srFSH6D3CgcrizIelKUqi.VMSIrqR6KVqcVWrdz9QrQSjayXgm5gC",
     "createdAt": "2025-12-02T14:39:46.211Z",
-    "updatedAt": "2025-12-02T14:39:46.211Z",
+    "updatedAt": "2025-12-11T10:04:28.868Z",
     "favorites": [
-      1,
-      2,
-      3
+      3,
+      1
     ]
   },
   {

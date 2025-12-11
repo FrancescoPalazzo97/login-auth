@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 import validator from 'validator';
 
-import { generateId, getUsers, saveUser, successObj, errorObj, encryptPassword, validatePassword, createToken } from '../lib/utility.js';
+import { generateId, getUsers, saveUser, successObj, errorObj, encryptPassword, validatePassword, createToken, requireAuth } from '../lib/utility.js';
 
 const passwordRequirements = { minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 0 };
 
@@ -82,5 +82,45 @@ router.post('/login', (req, res) => {
         }
     ));
 })
+
+router.use(requireAuth);
+
+router.post('/change-password', (req, res) => {
+    const { user } = req;
+    const { oldPassword, password } = req.body;
+
+
+    if (!oldPassword || !password) {
+        return res.status(400).json(errorObj('Vecchia e nuova password richieste!'));
+    };
+
+    if (!validator.isStrongPassword(password, passwordRequirements)) {
+        return res.status(400).json(
+            errorObj(`La password deve essere lunga ${passwordRequirements.minLength} e devve contenere almeno ${passwordRequirements.minUppercase} lettera maiuscola, ${passwordRequirements.minLowercase} lettera minuscola e ${passwordRequirements.minNumbers} numero/i`)
+        );
+    };
+
+    const users = getUsers();
+    const selectedUser = users.find(u => u.id === user.id && u.email === user.email);
+
+    if (!validatePassword(oldPassword, selectedUser.password)) {
+        return res.status(400).json(errorObj('Vecchia password errata!'));
+    };
+
+    selectedUser.password = encryptPassword(password);
+    selectedUser.updatedAt = new Date().toISOString();
+    saveUser(users);
+
+    res.status(200).json(successObj(
+        'Password cambiata con successo!',
+        {
+            token: createToken({ id: selectedUser.id, email: selectedUser.email }),
+            user: {
+                email: selectedUser.email,
+                favorites: selectedUser.favorites
+            }
+        }
+    ));
+});
 
 export default router;

@@ -22,8 +22,9 @@ const PizzaCard = ({ pizza }) => {
                 body: JSON.stringify({ token })
             });
 
+            
             const data = await res.json();
-
+            
             if (!res.ok || data.error) {
                 alert(`Errore: ${data.message}`);
                 return;
